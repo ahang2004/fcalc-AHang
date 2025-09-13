@@ -16,7 +16,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     ['4', '5', '6', '×'],
     ['1', '2', '3', '-'],
     ['0', '.', 'C', '+'],
-    ['='],
+    ['√','='],
   ];
 
   void _onButtonPressed(String value) {
@@ -116,12 +116,13 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   Color _getButtonColor(String value) {
     if (value == 'C') return Colors.redAccent;
     if (value == '=') return Colors.deepPurple;
+    if (value == '√') return Colors.teal; // Color for sqrt button
     if ('÷×-+'.contains(value)) return Colors.deepPurple[200]!;
     return Colors.white;
   }
 
   Color _getTextColor(String value) {
-    if (value == 'C' || value == '=') return Colors.white;
+    if (value == 'C' || value == '=' || value == '√') return Colors.white;
     if ('÷×-+'.contains(value)) return Colors.deepPurple[900]!;
     return Colors.black87;
   }

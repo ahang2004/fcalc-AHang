@@ -1,4 +1,5 @@
 import 'package:expressions/expressions.dart';
+import 'dart:math'; // Add this import
 
 class CalculatorLogic {
   String _expression = '';
@@ -31,9 +32,17 @@ class CalculatorLogic {
 
   void evaluate() {
     try {
-      final exp = Expression.parse(_expression.replaceAll('×', '*').replaceAll('÷', '/'));
+      // Replace operators and sqrt symbol
+      String parsed = _expression
+          .replaceAll('×', '*')
+          .replaceAll('÷', '/')
+          .replaceAllMapped(RegExp(r'√(\d+(\.\d+)?)'), (match) => 'sqrt(${match[1]})');
+
+      final exp = Expression.parse(parsed);
       final evaluator = const ExpressionEvaluator();
-      final evalResult = evaluator.eval(exp, {});
+      final evalResult = evaluator.eval(exp, {
+        'sqrt': (num x) => sqrt(x), // Provide sqrt function
+      });
       _result = evalResult.toString();
       _expression += ' = $_result';
       _hasResult = true;
